@@ -15,6 +15,7 @@ export default class School extends Component {
               <br />
               <Department name={name} city={city} />
               <br />
+              <br />
               <h2>Student Detail</h2>
               <table className="table table-hover table-bordered">
                 <thead>

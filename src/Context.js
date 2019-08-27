@@ -10,6 +10,10 @@ class SchoolProvider extends Component {
     students: [
       { id: 1, name: "MANASVI", age: 6 },
       { id: 2, name: "JAGRAV", age: 6 }
+    ],
+    employees: [
+      { id: 1, name: "Uma", role: "Manager" },
+      { id: 2, name: "Swathi", role: "CEO" }
     ]
   };
   render() {
