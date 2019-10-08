@@ -485,40 +485,13 @@ spec:
           value: "false"
       serviceAccount: fission-svc
 
-#
-# This is commented out until fission-ui allows configuring the
-# namespace. Right now it just crashes if Release.Namespace !=
-# "fission".
-#
-#---
-#apiVersion: extensions/v1beta1
-#kind: Deployment
-#metadata:
-#  name: fission-ui
-#  labels:
-#    chart: "fission-all-1.4.1"
-#spec:
-#  replicas: 1
-#  template:
-#    metadata:
-#      labels:
-#        svc: fission-ui
-#    spec:
-#      containers:
-#      - name: nginx
-#        image: index.docker.io/
-#        imagePullPolicy: IfNotPresent
-#      - name: kubectl-proxy
-#        image: index.docker.io/lachlanevenson/k8s-kubectl
-#        args: ["proxy", "--port", "8001", "--address", "127.0.0.1"]
-#      serviceAccount: fission-svc
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     svc: nats-streaming
-  name: nats-streaming
+    name: nats-streaming
 spec:
   replicas: 1
   selector:
@@ -533,12 +506,7 @@ spec:
       - name: nats-streaming
         image: nats-streaming
         imagePullPolicy: IfNotPresent
-        args: [
-          "--cluster_id", "fissionMQTrigger",
-          "--auth", "defaultFissionAuthToken",
-          "--max_channels", "0",
-          "--http_port", "4223"
-        ]
+        args: [ "--cluster_id", "fissionMQTrigger", "--auth", "defaultFissionAuthToken", "--max_channels", "0","--http_port", "4223"]
         ports:
         - containerPort: 4222
           hostPort: 4222
@@ -1959,32 +1927,4 @@ spec:
         command: [ "/pre-upgrade-checks" ]
         args: ["--fn-pod-namespace", "fission-function", "--envbuilder-namespace", "fission-builder"]
       serviceAccount: fission-svc
----
-# Source: fission-all/charts/prometheus/templates/alertmanager-ingress.yaml
-
----
-# Source: fission-all/charts/prometheus/templates/alertmanager-networkpolicy.yaml
-
-
----
-# Source: fission-all/charts/prometheus/templates/kube-state-metrics-networkpolicy.yaml
-
-
----
-# Source: fission-all/charts/prometheus/templates/pushgateway-ingress.yaml
-
----
-# Source: fission-all/charts/prometheus/templates/server-ingress.yaml
-
----
-# Source: fission-all/charts/prometheus/templates/server-networkpolicy.yaml
-
-
----
-# Source: fission-all/templates/post-install-job.yaml
-
-
----
-# Source: fission-all/templates/post-upgrade-job.yaml
-
 
